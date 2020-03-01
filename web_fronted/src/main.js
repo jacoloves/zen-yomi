@@ -3,12 +3,14 @@ import ReactDOM from 'react-dom';
 
 import { makeStyles } from '@material-ui/styles';
 import { theme } from './styles/theme';
-import { Box, Typography } from '../node_modules/@material-ui/core';
+import { Box, Typography, GridList } from '../node_modules/@material-ui/core';
+import Cards from './component/Cards';
+import News from '../data/News.json';
 
 const useStyles = makeStyles({
     NegaPosiTop: {
         textAlign: 'center'
-    },
+    },  
     NewsBox: {
         textAlign: 'left',
         marginLeft: 60,
@@ -16,21 +18,29 @@ const useStyles = makeStyles({
     },
 });
 
-function NegaPosiNews() {
+const NegaPosiNews = () => {
     const classes = useStyles();
+    const length = Object.keys(News).length;
 
     return(
         <div className={classes.NegaPosiTop}>
             <h1>ネガポジニュース一覧</h1>
             <NegaBoxPosi />
-
-            
+            <div>
+                <GridList>
+                    {(() => {
+                        for (let i = 0; i < length; i++) {
+                            <Cards />
+                        }
+                    })()};
+                </GridList>
+            </div>
             <NegaBoxNega />
         </div>
     );
 }
 
-function NegaBoxPosi() {
+const NegaBoxPosi = () => {
     const classes = useStyles();
 
     return(
@@ -52,7 +62,7 @@ function NegaBoxPosi() {
     );
 }
 
-function NegaBoxNega() {
+const NegaBoxNega = () => {
     const classes = useStyles();
 
     return(
